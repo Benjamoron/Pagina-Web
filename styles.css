@@ -124,9 +124,25 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
-    margin-left: auto;
   }
-  
+  .btnEditar{
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor:pointer;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+
+  }
   .btnEliminar:hover {
     background-color: #a93226;
+  }
+  #mensajeEdicion{
+    display: none;
+    color: rgb(209, 199, 199);
+    font-weight: bold;
+    margin-top: 10px;
   }
