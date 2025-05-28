@@ -34,6 +34,14 @@ document.getElementById("formReloj").addEventListener("submit", function(e) {
   btnEliminar.className = "btnEliminar";
   btnEliminar.addEventListener("click", function () {
     tarjeta.remove();
+
+    const lista = document.getElementById("listaRelojes");
+    const tarjetasRestantes = lista.querySelectorAll(".tarjeta-reloj").length;
+
+    if (tarjetasRestantes === 0) {
+      const botonCompra = lista.querySelector(".btnCompletar");
+      if (botonCompra) botonCompra.remove();
+    }
   });
 
   const btnEditar = document.createElement("button");
@@ -42,17 +50,17 @@ document.getElementById("formReloj").addEventListener("submit", function(e) {
   btnEditar.addEventListener("click", function () {
     document.getElementById("marca").value = marca;
     actualizarModelos();
-
-    // Esperar que se actualicen los modelos antes de setear el modelo
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     setTimeout(() => {
       document.getElementById("modelo").value = modelo;
-    }, 50);
+    }, 10);
 
     document.getElementById("anio").value = anio;
     document.getElementById("condicion").value = condicion;
-    // alert("Estás editando un reloj. Presioná 'Agregar al carrito' para guardar los cambios.");
     document.getElementById("mensajeEdicion").style.display = "block";
-
     tarjetaAEditar = tarjeta;
   });
 
@@ -61,20 +69,53 @@ document.getElementById("formReloj").addEventListener("submit", function(e) {
   tarjeta.appendChild(btnEditar);
   tarjeta.appendChild(btnEliminar);
 
+  const lista = document.getElementById("listaRelojes");
+  const cantidadAntes = lista.querySelectorAll(".tarjeta-reloj").length;
+
   if (tarjetaAEditar) {
     tarjetaAEditar.replaceWith(tarjeta);
     tarjetaAEditar = null;
   } else {
-    document.getElementById("listaRelojes").appendChild(tarjeta);
+    lista.appendChild(tarjeta);
   }
 
+  // 👉 Solo crear el botón si se agregó la PRIMERA tarjeta
+  if (cantidadAntes === 0) {
+    const btnCompletar = document.createElement("button");
+    btnCompletar.textContent = "Completar compra";
+    btnCompletar.className = "btnCompletar";
+    btnCompletar.addEventListener("click", function () {
+      const tarjetas = lista.querySelectorAll(".tarjeta-reloj");
+      tarjetas.forEach(t => t.remove());
+      tarjetaAEditar = null;
+      document.getElementById("mensajeEdicion").style.display = "none";
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+      this.remove();
+      alert("Compra completada. ¡Gracias por tu compra!");
+    });
+    lista.appendChild(btnCompletar);
+  } else {
+    // Siempre mover el botón al final
+    const botonCompra = lista.querySelector(".btnCompletar");
+    if (botonCompra) lista.appendChild(botonCompra);
+  }
+
+  // ✅ Scroll suave hasta el final de la página (después de todo el render)
+  setTimeout(() => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  }, 50);
+
   this.reset();
-
-
   document.getElementById("mensajeEdicion").style.display = "none";
-
 });
 
+// 👇 Función para cargar modelos según la marca
 const modelosPorMarca = {
   Casio: ["G-Shock", "Edifice", "Vintage"],
   Rolex: ["Submariner", "Daytona", "Datejust"],
@@ -98,3 +139,6 @@ function actualizarModelos() {
     });
   }
 }
+
+// 👇 Llamar a actualizarModelos cuando se cambia la marca
+document.getElementById("marca").addEventListener("change", actualizarModelos);
