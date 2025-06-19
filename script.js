@@ -93,3 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mensajeEdicion').style.display = 'none';
   });
 });
+console.log("✅ script.js ACTUALIZADO desde VS Code - " + new Date().toLocaleTimeString());
