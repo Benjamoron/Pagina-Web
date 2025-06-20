@@ -1,14 +1,120 @@
-✅ Ejercicio E: Lista de Tareas Pendientes
-/* Instrucciones:
+:root {
+  --dorado: #bfa76d;
+  --gris:   #5d5d6d;
+  --crema:  #f9f8f6;
+  --carbon: #1e1e28;
+}
 
-Crear una aplicación sencilla para gestionar tareas pendientes.
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--crema);
+  color: var(--carbon);
+}
 
-Permitir agregar tareas con una descripción (campo de texto).
+#inicio {
+  min-height: 60vh;
+}
 
-Al agregarlas, deben aparecer en una lista en pantalla.
+.texto-dorado {
+  color: var(--dorado) !important;
+}
 
-Cada tarea debe tener un botón para marcarla como completada (solo cambiar el estilo de texto, por ejemplo, tacharlo).
+/* ——— Botón principal dorado ——— */
+.boton-dorado {
+  background-color: var(--dorado) !important;
+  color: var(--carbon) !important;
+  border: none;
+  font-weight: 600;
+  transition: transform 0.2s ease !important;
+}
+.boton-dorado:hover {
+  transform: scale(1.05) !important;
+}
 
-Opcional: incluir un botón para eliminar tareas individuales.
+/* ——— Botones de acción ——— */
+/* Editar */
+.boton-editar,
+.btnEditar {
+  width: 100% !important;
+  background-color: var(--gris) !important;
+  color: #fff !important;
+  border: none;
+  transition: transform 0.2s ease !important;
+}
+.boton-editar:hover,
+.btnEditar:hover {
+  transform: scale(1.05) !important;
+}
 
-La información puede almacenarse en un array. */
+/* Eliminar */
+.boton-eliminar,
+.btnEliminar {
+  width: 100% !important;
+  background-color: #c0392b !important;
+  color: #fff !important;
+  border: none;
+  transition: transform 0.2s ease !important;
+}
+.boton-eliminar:hover,
+.btnEliminar:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Completar compra */
+.boton-finalizar,
+.btn-completar {
+  width: auto !important;
+  padding: 0.5rem 1rem !important;
+  display: block !important;
+  margin: 1rem auto 0 !important;
+  background-color: #27ae60 !important;
+  color: #fff !important;
+  border: none;
+  transition: transform 0.2s ease !important;
+}
+.boton-finalizar:hover,
+.btn-completar:hover {
+  transform: scale(1.05) !important;
+}
+
+/* ——— Tarjetas ——— */
+.tarjeta-reloj {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .1);
+}
+.imagen-reloj {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  padding: .75rem;
+}
+
+/* ——— Responsive (<576px) ——— */
+@media (max-width: 576px) {
+  #listaRelojes > .col,
+  #collectionRow > .col {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* ——— Colección ——— */
+#collectionRow .card-img-top {
+  height: 280px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
+
+/* ——— Modal ——— */
+#watchModal .modal-dialog {
+  max-width: 600px;
+}
+#watchModalImg {
+  display: block;
+  margin: 0 auto 1rem;
+  max-width: 100%;
+  height: 400px;
+  object-fit: contain;
+}
