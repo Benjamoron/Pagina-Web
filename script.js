@@ -1,19 +1,22 @@
 const relojesColeccion = [
+  
   { marca: "Omega", modelo: "Speedmaster", img: "img/speedmaster.jpg", desc: "El icónico Moonwatch." },
-  { marca: "Rolex", modelo: "Submariner", img: "img/submariner.jpg", desc: "El legendario reloj de buceo." },
-  { marca: "Casio", modelo: "G-Shock", img: "img/g-shock.jpg", desc: "Clásico digital resistente a golpes." },
-  { marca: "Seiko", modelo: "Prospex", img: "img/prospex.jpg", desc: "Divers japonés con caja turtle." },
   { marca: "Omega", modelo: "Seamaster", img: "img/seamaster.jpg", desc: "Inspirado en el original de 1957." },
-  { marca: "Swatch", modelo: "Irony", img: "img/irony.jpg", desc: "Cronógrafo ligero y accesible." },
+  { marca: "Omega", modelo: "Constellation", img: "img/constellation.jpg", desc: "Estilo y precisión desde 1952." },
+  
   { marca: "Casio", modelo: "Edifice", img: "img/edifice.jpg", desc: "Diseño deportivo con crono analógico." },
   { marca: "Casio", modelo: "Vintage", img: "img/vintage.jpg", desc: "Estilo retro con funciones modernas." },
+  { marca: "Casio", modelo: "G-Shock", img: "img/g-shock.jpg", desc: "Clásico digital resistente a golpes." },
+  { marca: "Rolex", modelo: "Submariner", img: "img/submariner.jpg", desc: "El legendario reloj de buceo." },
   { marca: "Rolex", modelo: "Daytona", img: "img/daytona.jpg", desc: "Cronógrafo de alto prestigio." },
   { marca: "Rolex", modelo: "Datejust", img: "img/datejust.jpg", desc: "Clásico con fechador distintivo." },
+  { marca: "Seiko", modelo: "Prospex", img: "img/prospex.jpg", desc: "Divers japonés con caja turtle." },
   { marca: "Seiko", modelo: "Presage", img: "img/presage.jpg", desc: "Elegancia japonesa automática." },
   { marca: "Seiko", modelo: "Astron", img: "img/astron.jpg", desc: "GPS Solar de alta precisión." },
+  { marca: "Swatch", modelo: "Irony", img: "img/irony.jpg", desc: "Cronógrafo ligero y accesible." },
   { marca: "Swatch", modelo: "Moonswatch", img: "img/moonswatch.jpg", desc: "Colaboración Swatch x Omega." },
-  { marca: "Swatch", modelo: "Classic", img: "img/classic.jpg", desc: "Diseños atemporales y divertidos." },
-  { marca: "Omega", modelo: "Constellation", img: "img/constellation.jpg", desc: "Estilo y precisión desde 1952." }
+  { marca: "Swatch", modelo: "Classic", img: "img/classic.jpg", desc: "Diseños atemporales y divertidos." }
+  
 ];
 
 const modelosPorMarca = {
