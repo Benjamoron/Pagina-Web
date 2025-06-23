@@ -11,7 +11,6 @@ body {
   color: var(--carbon);
 }
 
-/* Sección con fondo lunar */
 #inicio {
   min-height: 60vh;
   background-image: url("img/luna3.jpg");
@@ -24,7 +23,6 @@ body {
   text-align: center;
 }
 
-/* Capa sobre imagen */
 #inicio .container {
   background-color: rgba(10, 10, 25, 0.7);
   padding: 2rem;
@@ -47,7 +45,6 @@ body {
   transform: scale(1.05) !important;
 }
 
-/* Botones editar */
 .boton-editar,
 .btnEditar {
   width: 100% !important;
@@ -61,7 +58,6 @@ body {
   transform: scale(1.05) !important;
 }
 
-/* Botones eliminar */
 .boton-eliminar,
 .btnEliminar {
   width: 100% !important;
@@ -75,7 +71,6 @@ body {
   transform: scale(1.05) !important;
 }
 
-/* Botón comprar */
 .boton-finalizar,
 .btn-completar {
   width: auto !important;
@@ -92,7 +87,6 @@ body {
   transform: scale(1.05) !important;
 }
 
-/* Tarjetas */
 .tarjeta-reloj {
   background: #fff;
   border-radius: 1rem;
@@ -105,7 +99,6 @@ body {
   padding: .75rem;
 }
 
-/* Responsive */
 @media (max-width: 576px) {
   #listaRelojes > .col,
   #collectionRow > .col {
@@ -114,7 +107,6 @@ body {
   }
 }
 
-/* Colección */
 #collectionRow .card-img-top {
   height: 280px;
   object-fit: contain;
@@ -122,7 +114,6 @@ body {
   background: #fff;
 }
 
-/* Modal */
 #watchModal .modal-dialog {
   max-width: 600px;
 }

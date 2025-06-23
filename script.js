@@ -43,11 +43,7 @@ function cargarColeccion() {
   contenedor.querySelectorAll("button[data-i]").forEach(btn => {
     btn.onclick = () => {
       const reloj = relojesColeccion[btn.dataset.i];
-      if (tarjetaEditando) {
-        reemplazarTarjeta(reloj);
-      } else {
-        agregarAlCarrito(reloj);
-      }
+      tarjetaEditando ? reemplazarTarjeta(reloj) : agregarAlCarrito(reloj);
     };
   });
 }
@@ -69,9 +65,7 @@ function agregarAlCarrito(reloj) {
     col.remove();
     total -= reloj.precio;
     actualizarTotal();
-    if (lista.children.length === 0) {
-      document.querySelector(".boton-finalizar")?.remove();
-    }
+    if (!lista.children.length) document.querySelector(".boton-finalizar")?.remove();
   };
 
   col.querySelector(".boton-editar").onclick = () => {
@@ -92,21 +86,7 @@ function agregarAlCarrito(reloj) {
 
   total += reloj.precio;
   actualizarTotal();
-
-  let finalizar = document.querySelector(".boton-finalizar");
-  if (!finalizar) {
-    finalizar = document.createElement("button");
-    finalizar.textContent = "Completar compra";
-    finalizar.className = "btn boton-finalizar w-auto d-block mx-auto mt-3";
-    finalizar.onclick = () => {
-      alert("¡Gracias por tu compra!");
-      lista.innerHTML = "";
-      total = 0;
-      actualizarTotal();
-      finalizar.remove();
-    };
-    document.getElementById("comprar").appendChild(finalizar);
-  }
+  agregarBotonFinalizar();
 
   setTimeout(() => {
     const y = document.getElementById("listaRelojes").getBoundingClientRect().top + window.scrollY - 150;
@@ -131,7 +111,25 @@ function ocultarMensajeEdicion() {
 }
 
 function actualizarTotal() {
-  document.getElementById("precioTotal").textContent = total > 0 ? `Total: $${total}` : "";
+  document.getElementById("precioTotal").textContent = total ? `Total: $${total}` : "";
+}
+
+function agregarBotonFinalizar() {
+  let finalizar = document.querySelector(".boton-finalizar");
+  if (!finalizar) {
+    finalizar = document.createElement("button");
+    finalizar.textContent = "Completar compra";
+    finalizar.className = "btn boton-finalizar w-auto d-block mx-auto mt-3";
+    finalizar.onclick = () => {
+      alert("¡Gracias por tu compra!");
+      document.getElementById("listaRelojes").innerHTML = "";
+      total = 0;
+      actualizarTotal();
+      finalizar.remove();
+    };
+    document.getElementById("comprar").appendChild(finalizar);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", cargarColeccion);
+S
