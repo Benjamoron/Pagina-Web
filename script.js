@@ -23,6 +23,7 @@ let carrito = [];
 function guardarCarritoEnStorage() {
   localStorage.setItem("carrito", JSON.stringify(carrito));
   localStorage.setItem("total", total);
+  actualizarIconoCarrito();
 }
 
 function cargarCarritoDesdeStorage() {
@@ -36,6 +37,15 @@ function cargarCarritoDesdeStorage() {
     carrito.forEach(reloj => {
       agregarAlCarrito(reloj, true);
     });
+  }
+}
+
+function actualizarIconoCarrito() {
+  const navLinks = document.getElementById("navLinks");
+  const carritoItem = navLinks?.querySelector("a[href='#comprar']");
+  if (carritoItem) {
+    const cantidad = carrito.length;
+    carritoItem.innerHTML = `<span class="me-1">🛒</span>Carrito${cantidad > 0 ? ` (${cantidad})` : ""}`;
   }
 }
 
@@ -98,14 +108,12 @@ function agregarAlCarrito(reloj, desdeStorage = false) {
   };
 
   if (tarjetaEditando) {
-    // Detectar el reloj anterior por el texto
     const texto = tarjetaEditando.querySelector("p").innerText;
     const partes = texto.split("\n");
     const datosTexto = partes[0].split(" ");
     const marcaAntigua = datosTexto[0];
     const modeloAntiguo = datosTexto.slice(1).join(" ");
 
-    // Buscar y reemplazar en el carrito
     const index = carrito.findIndex(r => r.marca === marcaAntigua && r.modelo === modeloAntiguo);
     if (index !== -1) carrito[index] = reloj;
 
@@ -165,6 +173,7 @@ function agregarBotonFinalizar() {
       finalizar.remove();
       localStorage.removeItem("carrito");
       localStorage.removeItem("total");
+      actualizarIconoCarrito();
     };
     document.getElementById("comprar").appendChild(finalizar);
   }
@@ -173,4 +182,5 @@ function agregarBotonFinalizar() {
 document.addEventListener("DOMContentLoaded", () => {
   cargarColeccion();
   cargarCarritoDesdeStorage();
+  actualizarIconoCarrito();
 });
