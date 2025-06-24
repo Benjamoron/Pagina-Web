@@ -18,6 +18,26 @@ const relojesColeccion = [
 
 let total = 0;
 let tarjetaEditando = null;
+let carrito = [];
+
+function guardarCarritoEnStorage() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  localStorage.setItem("total", total);
+}
+
+function cargarCarritoDesdeStorage() {
+  const carritoGuardado = localStorage.getItem("carrito");
+  const totalGuardado = localStorage.getItem("total");
+
+  if (carritoGuardado) {
+    carrito = JSON.parse(carritoGuardado);
+    total = parseFloat(totalGuardado) || 0;
+
+    carrito.forEach(reloj => {
+      agregarAlCarrito(reloj, true);
+    });
+  }
+}
 
 function cargarColeccion() {
   const contenedor = document.getElementById("collectionRow");
@@ -48,7 +68,7 @@ function cargarColeccion() {
   });
 }
 
-function agregarAlCarrito(reloj) {
+function agregarAlCarrito(reloj, desdeStorage = false) {
   const lista = document.getElementById("listaRelojes");
 
   const col = document.createElement("div");
@@ -64,7 +84,9 @@ function agregarAlCarrito(reloj) {
   col.querySelector(".boton-eliminar").onclick = () => {
     col.remove();
     total -= reloj.precio;
+    carrito = carrito.filter(r => !(r.marca === reloj.marca && r.modelo === reloj.modelo && r.precio === reloj.precio));
     actualizarTotal();
+    guardarCarritoEnStorage();
     if (!lista.children.length) document.querySelector(".boton-finalizar")?.remove();
   };
 
@@ -76,12 +98,26 @@ function agregarAlCarrito(reloj) {
   };
 
   if (tarjetaEditando) {
+    // Detectar el reloj anterior por el texto
+    const texto = tarjetaEditando.querySelector("p").innerText;
+    const partes = texto.split("\n");
+    const datosTexto = partes[0].split(" ");
+    const marcaAntigua = datosTexto[0];
+    const modeloAntiguo = datosTexto.slice(1).join(" ");
+
+    // Buscar y reemplazar en el carrito
+    const index = carrito.findIndex(r => r.marca === marcaAntigua && r.modelo === modeloAntiguo);
+    if (index !== -1) carrito[index] = reloj;
+
     tarjetaEditando.replaceWith(col);
     tarjetaEditando = null;
     ocultarMensajeEdicion();
     cargarColeccion();
+    guardarCarritoEnStorage();
   } else {
     lista.appendChild(col);
+    if (!desdeStorage) carrito.push(reloj);
+    guardarCarritoEnStorage();
   }
 
   total += reloj.precio;
@@ -124,12 +160,17 @@ function agregarBotonFinalizar() {
       alert("¡Gracias por tu compra!");
       document.getElementById("listaRelojes").innerHTML = "";
       total = 0;
+      carrito = [];
       actualizarTotal();
       finalizar.remove();
+      localStorage.removeItem("carrito");
+      localStorage.removeItem("total");
     };
     document.getElementById("comprar").appendChild(finalizar);
   }
 }
 
-document.addEventListener("DOMContentLoaded", cargarColeccion);
-S
+document.addEventListener("DOMContentLoaded", () => {
+  cargarColeccion();
+  cargarCarritoDesdeStorage();
+});
